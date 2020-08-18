@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../models/transaction.dart';
 
-class Transaction {
-  String id;
-  String title;
-  double ammount;
-  DateTime date;
-
-  Transaction({
-    @required this.id,
-    @required this.title,
-    @required this.ammount,
-    @required this.date,
-  });
-}
-
-class TransactionWidget extends StatelessWidget {
+class TransactionTile extends StatelessWidget {
   final Transaction transaction;
 
-  TransactionWidget(this.transaction);
+  TransactionTile(this.transaction);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +14,12 @@ class TransactionWidget extends StatelessWidget {
       child: Row(
         children: [
           _Price(transaction.ammount),
-          _Expense(
-            date: transaction.date,
-            title: transaction.title,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _Title(transaction.title),
+              _Date(transaction.date),
+            ],
           )
         ],
       ),
@@ -62,31 +52,39 @@ class _Price extends StatelessWidget {
   }
 }
 
-class _Expense extends StatelessWidget {
+class _Title extends StatelessWidget {
   final String title;
-  final DateTime date;
-  _Expense({
-    @required this.title,
-    @required this.date,
-  });
+
+  _Title(this.title);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+    return Container(
+      child: Text(
+        title,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
         ),
-        Text(DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY).format(date),
-            style: TextStyle(
-              color: Colors.grey,
-            )),
-      ],
+      ),
+    );
+  }
+}
+
+class _Date extends StatelessWidget {
+  final DateTime date;
+
+  _Date(this.date);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY).format(date),
+        style: TextStyle(
+          color: Colors.grey,
+        ),
+      ),
     );
   }
 }
