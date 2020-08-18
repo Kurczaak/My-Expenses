@@ -38,7 +38,7 @@ class _Price extends StatelessWidget {
       padding: EdgeInsets.all(5),
       margin: EdgeInsets.all(8),
       child: Text(
-        '${ammount} zł',
+        ammount.toStringAsFixed(2) + ' zł',
         style: TextStyle(
           color: Colors.purple,
           fontSize: 20,

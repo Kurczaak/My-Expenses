@@ -34,7 +34,7 @@ class _UserTransactionsState extends State<UserTransactions> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          NewTransaction(_addTransaction),
+          //NewTransaction(_addTransaction),
           TransactionList(transactions),
         ],
       ),
