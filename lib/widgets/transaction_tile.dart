@@ -40,16 +40,13 @@ class _Price extends StatelessWidget {
       child: Text(
         ammount.toStringAsFixed(2) + ' zł',
         style: TextStyle(
+          color: Theme.of(context).primaryColor,
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Theme.of(context).primaryColor,
         ),
       ),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).primaryColor,
-          width: 2,
-        ),
+        border: Border.all(color: Theme.of(context).primaryColor, width: 2),
       ),
     );
   }
@@ -63,13 +60,7 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text(
-        title,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-      ),
+      child: Text(title, style: Theme.of(context).textTheme.headline6),
     );
   }
 }

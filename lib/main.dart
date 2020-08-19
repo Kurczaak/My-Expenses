@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_expenses/widgets/new_transaction.dart';
 import 'package:my_expenses/widgets/transaction_list.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +15,22 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
         primarySwatch: Colors.purple,
         accentColor: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -35,7 +52,29 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
     Transaction(
         id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
+    Transaction(
+        id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
+    Transaction(
+        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
+    Transaction(
+        id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
+    Transaction(
+        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
+    Transaction(
+        id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
+    Transaction(
+        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
   ];
+
+  List<Transaction> get recentTransactions {
+    return transactions.where((transaction) {
+      return transaction.date
+          .isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   void _addTransaction(String txTitle, double txPrice) {
     setState(() {
@@ -73,7 +112,13 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: TransactionList(transactions),
+      body: Column(children: [
+        Chart(recentTransactions),
+        Container(
+          height: 500,
+          child: TransactionList(transactions),
+        ),
+      ]),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _startAddNewTransaction(context),
