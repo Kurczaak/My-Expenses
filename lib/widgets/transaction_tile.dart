@@ -82,3 +82,32 @@ class _Date extends StatelessWidget {
     );
   }
 }
+
+class TransactionListTile extends StatelessWidget {
+  final Transaction transaction;
+
+  TransactionListTile(this.transaction);
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        radius: 30,
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: FittedBox(
+            child: Text(transaction.ammount.toStringAsFixed(2) + ' zł'),
+          ),
+        ),
+      ),
+      title:
+          Text(transaction.title, style: Theme.of(context).textTheme.headline6),
+      subtitle: Text(
+        DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
+            .format(transaction.date),
+        style: TextStyle(
+          color: Colors.grey,
+        ),
+      ),
+    );
+  }
+}
