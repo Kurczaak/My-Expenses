@@ -40,13 +40,16 @@ class _Price extends StatelessWidget {
       child: Text(
         ammount.toStringAsFixed(2) + ' zł',
         style: TextStyle(
-          color: Colors.purple,
           fontSize: 20,
           fontWeight: FontWeight.bold,
+          color: Theme.of(context).primaryColor,
         ),
       ),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.purple, width: 2),
+        border: Border.all(
+          color: Theme.of(context).primaryColor,
+          width: 2,
+        ),
       ),
     );
   }

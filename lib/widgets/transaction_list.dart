@@ -9,14 +9,11 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      child: ListView.builder(
-        itemCount: userTransactions.length,
-        itemBuilder: (ctx, index) {
-          return TransactionTile(userTransactions[index]);
-        },
-      ),
+    return ListView.builder(
+      itemCount: userTransactions.length,
+      itemBuilder: (ctx, index) {
+        return TransactionTile(userTransactions[index]);
+      },
     );
   }
 }
