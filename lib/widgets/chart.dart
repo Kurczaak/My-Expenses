@@ -27,7 +27,21 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
     return Card(
-      child: Row(),
+      margin: EdgeInsets.all(0),
+      elevation: 2,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ...groupedTransactionValues.map((tx) {
+            return Column(
+              children: [
+                Text(tx['day']),
+                Text(tx['ammount'].toString()),
+              ],
+            );
+          }).toList()
+        ],
+      ),
     );
   }
 }
