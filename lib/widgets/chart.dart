@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
+import './chart_bar.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> transactions;
 
   List<Map<String, Object>> get groupedTransactionValues {
     return List.generate(7, (index) {
-      double sum = 0.0;
+      var sum = 0.0;
       DateTime weekday = DateTime.now().subtract(Duration(days: index));
 
       for (var i = 0; i < transactions.length; i++) {
@@ -17,30 +18,41 @@ class Chart extends StatelessWidget {
           sum += transactions[i].ammount;
         }
       }
-      return {'day': DateFormat.E().format(weekday), 'ammount': sum};
+      return {
+        'day': DateFormat.E().format(weekday).substring(0, 2),
+        'ammount': sum
+      };
     });
+  }
+
+  double get totalSpending {
+    return transactions.fold(0.0, (sum, tx) => sum + tx.ammount);
   }
 
   Chart(this.transactions);
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactionValues);
     return Card(
-      margin: EdgeInsets.all(0),
-      elevation: 2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ...groupedTransactionValues.map((tx) {
-            return Column(
-              children: [
-                Text(tx['day']),
-                Text(tx['ammount'].toString()),
-              ],
-            );
-          }).toList()
-        ],
+      margin: EdgeInsets.all(10),
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ...groupedTransactionValues.map((tx) {
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartBar(
+                  label: tx['day'],
+                  spending: tx['ammount'],
+                  pctSpending: (tx['ammount'] as double) / totalSpending,
+                ),
+              );
+            }).toList()
+          ],
+        ),
       ),
     );
   }

@@ -52,21 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
         id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
     Transaction(
         id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
-    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
-    Transaction(
-        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
-    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
-    Transaction(
-        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
-    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
-    Transaction(
-        id: 't2', title: 'T-shirt', ammount: 34.51, date: DateTime.now()),
-    Transaction(
-        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
   ];
 
   List<Transaction> get recentTransactions {
@@ -115,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(children: [
         Chart(recentTransactions),
         Container(
-          height: 500,
+          height: 400,
           child: TransactionList(transactions),
         ),
       ]),
