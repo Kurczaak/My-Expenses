@@ -9,42 +9,78 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return _Bar(
+          spending: spending,
+          pctSpending: pctSpending,
+          label: label,
+          constraints: constraints,
+        );
+      },
+    );
+  }
+}
+
+class _Bar extends StatelessWidget {
+  const _Bar({
+    Key key,
+    @required this.spending,
+    @required this.pctSpending,
+    @required this.label,
+    @required this.constraints,
+  }) : super(key: key);
+
+  final double spending;
+  final double pctSpending;
+  final String label;
+  final BoxConstraints constraints;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          height: 20,
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+          height: constraints.maxHeight * 0.1,
           child: FittedBox(
-            child: Text(spending.toStringAsFixed(0) + ' zł'),
+            child: Text(
+              spending.toStringAsFixed(0) + ' zł',
+              softWrap: true,
+            ),
           ),
         ),
         Container(
-          width: 10,
-          height: 60,
+          width: constraints.maxWidth * 0.5,
+          margin: EdgeInsets.all(constraints.maxHeight * 0.05),
+          height: constraints.maxHeight * 0.6,
           child: Stack(
+            alignment: Alignment.bottomCenter,
             children: [
               Container(
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey, width: 1),
                   color: Color.fromRGBO(220, 220, 220, 1),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(5),
                 ),
               ),
               FractionallySizedBox(
-                  alignment: Alignment.bottomRight,
                   heightFactor: pctSpending,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   )),
             ],
           ),
         ),
-        Text(label),
-        SizedBox(
-          height: 10,
+        Container(
+          height: constraints.maxHeight * 0.1,
+          child: FittedBox(
+            child: Text(label),
+          ),
         ),
       ],
     );
