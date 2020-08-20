@@ -90,6 +90,7 @@ class TransactionListTile extends StatelessWidget {
   TransactionListTile(this.transaction, this.deleteTransaction);
   @override
   Widget build(BuildContext context) {
+    final _screenWidth = MediaQuery.of(context).size.width;
     return Card(
       elevation: 4,
       child: ListTile(
@@ -111,11 +112,18 @@ class TransactionListTile extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          color: Theme.of(context).errorColor,
-          onPressed: () => deleteTransaction(transaction),
-        ),
+        trailing: _screenWidth > 460
+            ? FlatButton.icon(
+                onPressed: () => deleteTransaction(transaction),
+                textColor: Theme.of(context).errorColor,
+                icon: Icon(Icons.delete),
+                label: Text('Delete'),
+              )
+            : IconButton(
+                icon: Icon(Icons.delete),
+                color: Theme.of(context).errorColor,
+                onPressed: () => deleteTransaction(transaction),
+              ),
       ),
     );
   }
