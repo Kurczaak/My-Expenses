@@ -19,11 +19,14 @@ class TransactionList extends StatelessWidget {
                   child: Text('No transactions added yet!',
                       style: Theme.of(context).textTheme.headline6),
                 ),
-                Container(
-                  height: 500,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: Container(
+                    height: 500,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 )
               ],

@@ -29,6 +29,11 @@ class Chart extends StatelessWidget {
     return transactions.fold(0.0, (sum, tx) => sum + tx.ammount);
   }
 
+  double calculatePctSpendings(double spendings, double total) {
+    if (total <= double.minPositive) return 0;
+    return spendings / total;
+  }
+
   Chart(this.transactions);
 
   @override
@@ -47,7 +52,8 @@ class Chart extends StatelessWidget {
                 child: ChartBar(
                   label: tx['day'],
                   spending: tx['ammount'],
-                  pctSpending: (tx['ammount'] as double) / totalSpending,
+                  pctSpending:
+                      calculatePctSpendings(tx['ammount'], totalSpending),
                 ),
               );
             }).toList()
