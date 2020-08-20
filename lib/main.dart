@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:my_expenses/widgets/new_transaction.dart';
 import 'package:my_expenses/widgets/transaction_list.dart';
@@ -47,12 +49,55 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static double generatePrice() {
+    return 10 + Random().nextInt(30) + Random().nextDouble();
+  }
+
+  static DateTime generateDate() {
+    return DateTime.now().subtract(
+      Duration(
+        days: Random().nextInt(7),
+      ),
+    );
+  }
+
   final List<Transaction> transactions = [
-    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
     Transaction(
-        id: 't2', title: 'T-shirt', ammount: 3499.51, date: DateTime.now()),
+      id: 't1',
+      title: 'Shoes',
+      ammount: generatePrice(),
+      date: generateDate(),
+    ),
     Transaction(
-        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
+      id: 't2',
+      title: 'T-shirt',
+      ammount: generatePrice(),
+      date: generateDate(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Sweatshirt',
+      ammount: generatePrice(),
+      date: generateDate(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Baseball cap',
+      ammount: generatePrice(),
+      date: generateDate(),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Sunglasses',
+      ammount: generatePrice(),
+      date: generateDate(),
+    ),
+    Transaction(
+      id: 't6',
+      title: 'Groceries',
+      ammount: generatePrice(),
+      date: generateDate(),
+    ),
   ];
 
   List<Transaction> get recentTransactions {
@@ -104,14 +149,16 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Chart(recentTransactions),
-          Container(
-            height: 400,
-            child: TransactionList(transactions, _deleteTransaction),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Chart(recentTransactions),
+            Container(
+              height: 415,
+              child: TransactionList(transactions, _deleteTransaction),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
