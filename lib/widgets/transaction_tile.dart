@@ -85,27 +85,36 @@ class _Date extends StatelessWidget {
 
 class TransactionListTile extends StatelessWidget {
   final Transaction transaction;
+  final Function deleteTransaction;
 
-  TransactionListTile(this.transaction);
+  TransactionListTile(this.transaction, this.deleteTransaction);
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        radius: 30,
-        child: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: FittedBox(
-            child: Text(transaction.ammount.toStringAsFixed(2) + ' zł'),
+    return Card(
+      elevation: 4,
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: FittedBox(
+              child: Text(transaction.ammount.toStringAsFixed(2) + ' zł'),
+            ),
           ),
         ),
-      ),
-      title:
-          Text(transaction.title, style: Theme.of(context).textTheme.headline6),
-      subtitle: Text(
-        DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-            .format(transaction.date),
-        style: TextStyle(
-          color: Colors.grey,
+        title: Text(transaction.title,
+            style: Theme.of(context).textTheme.headline6),
+        subtitle: Text(
+          DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
+              .format(transaction.date),
+          style: TextStyle(
+            color: Colors.grey,
+          ),
+        ),
+        trailing: IconButton(
+          icon: Icon(Icons.delete),
+          color: Theme.of(context).errorColor,
+          onPressed: () => deleteTransaction(transaction),
         ),
       ),
     );

@@ -48,11 +48,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
-    // Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
-    // Transaction(
-    //     id: 't2', title: 'T-shirt', ammount: 3499.51, date: DateTime.now()),
-    // Transaction(
-    //     id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
+    Transaction(id: 't1', title: 'Shoes', ammount: 19.99, date: DateTime.now()),
+    Transaction(
+        id: 't2', title: 'T-shirt', ammount: 3499.51, date: DateTime.now()),
+    Transaction(
+        id: 't3', title: 'Sweatshirt', ammount: 73.22, date: DateTime.now()),
   ];
 
   List<Transaction> get recentTransactions {
@@ -70,6 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
         date: txDate,
         id: txDate.toString(),
       ));
+    });
+  }
+
+  void _deleteTransaction(Transaction tx) {
+    setState(() {
+      transactions.removeWhere((transaction) => tx.id == transaction.id);
     });
   }
 
@@ -98,13 +104,15 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Column(children: [
-        Chart(recentTransactions),
-        Container(
-          height: 400,
-          child: TransactionList(transactions),
-        ),
-      ]),
+      body: Column(
+        children: [
+          Chart(recentTransactions),
+          Container(
+            height: 400,
+            child: TransactionList(transactions, _deleteTransaction),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _startAddNewTransaction(context),
